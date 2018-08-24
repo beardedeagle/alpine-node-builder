@@ -5,9 +5,10 @@ LABEL maintainer="beardedeagle <randy@heroictek.com>"
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images.
-ENV REFRESHED_AT=2018-08-20 \
+ENV REFRESHED_AT=2018-08-24 \
   NODE_VER=10.9.0 \
   NPM_VER=6.4.0 \
+  TERM=xterm \
   LANG=C.UTF-8
 
 RUN set -xe \
@@ -18,7 +19,7 @@ RUN set -xe \
   && rm -rf /root/.cache \
   && rm -rf /var/cache/apk/*
 
-FROM base_stage as node_stage
+FROM base_stage as deps_stage
 
 RUN set -xe \
   && apk add --no-cache --virtual .build-deps \
@@ -37,7 +38,11 @@ RUN set -xe \
     python \
     rsync \
     tar \
-  && update-ca-certificates --fresh \
+  && update-ca-certificates --fresh
+
+FROM deps_stage as node_stage
+
+RUN set -xe \
   && addgroup -g 1000 node \
   && adduser -u 1000 -G node -s /bin/sh -D node \
   && for key in \
@@ -67,11 +72,18 @@ RUN set -xe \
     && cd .. \
     && rm -Rf "node-v$NODE_VER" \
     && rm "node-v$NODE_VER.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
-    && npm install -g npm@$NPM_VER \
-    && apk del .build-deps \
-    && rm -rf /root/.cache \
-    && rm -rf /var/cache/apk/*
+    && npm install -g npm@$NPM_VER
+
+FROM deps_stage as stage
+
+COPY --from=node_stage /usr/local /opt/node
+
+RUN set -xe \
+  && rsync -a /opt/node/ /usr/local \
+  && apk del .build-deps \
+  && rm -rf /root/.cache \
+  && rm -rf /var/cache/apk/*
 
 FROM base_stage
 
-COPY --from=node_stage /usr/local /usr/local
+COPY --from=stage /usr/local /usr/local
