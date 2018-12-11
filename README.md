@@ -9,7 +9,7 @@ No effort has been made to make this image suitable to run in unprivileged envir
 ```shell
 Alpine 3.8
 Nodejs 11.4.0
-NPM 6.4.1
+NPM 6.5.0
 ```
 
 ## Usage
