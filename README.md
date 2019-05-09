@@ -7,9 +7,9 @@ No effort has been made to make this image suitable to run in unprivileged envir
 ## Software/Language Versions
 
 ```shell
-Alpine 3.8
-Nodejs 11.7.0
-NPM 6.6.0
+Alpine 3.9
+Nodejs 12.2.0
+NPM 6.9.0
 ```
 
 ## Usage
