@@ -1,13 +1,13 @@
-FROM alpine:3.8 as base_stage
+FROM alpine:3.9 as base_stage
 
 LABEL maintainer="beardedeagle <randy@heroictek.com>"
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images.
-ENV REFRESHED_AT=2019-01-19 \
-  NODE_VER=11.7.0 \
-  NPM_VER=6.6.0 \
+ENV REFRESHED_AT=2019-05-08 \
+  NODE_VER=12.2.0 \
+  NPM_VER=6.9.0 \
   TERM=xterm \
   LANG=C.UTF-8
 
@@ -58,9 +58,9 @@ RUN set -xe \
     A48C2BEE680E841632CD4E44F07496B3EB3C1762 \
     B9E2F5981AA6E0CD28160D9FF13993A75599653C \
   ; do \
-    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
-    gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
-    gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
+    gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
+    gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
+    gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done \
     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VER/node-v$NODE_VER.tar.xz" \
     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VER/SHASUMS256.txt.asc" \
@@ -69,7 +69,7 @@ RUN set -xe \
     && tar -xf "node-v$NODE_VER.tar.xz" \
     && cd "node-v$NODE_VER" \
     && ./configure \
-    && make -j$(getconf _NPROCESSORS_ONLN) \
+    && make -j$(getconf _NPROCESSORS_ONLN) V= \
     && make install \
     && cd .. \
     && rm -Rf "node-v$NODE_VER" \
