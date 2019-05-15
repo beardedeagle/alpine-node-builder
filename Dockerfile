@@ -5,7 +5,7 @@ LABEL maintainer="beardedeagle <randy@heroictek.com>"
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images.
-ENV REFRESHED_AT=2019-05-08 \
+ENV REFRESHED_AT=2019-05-14 \
   NODE_VER=12.2.0 \
   NPM_VER=6.9.0 \
   TERM=xterm \
