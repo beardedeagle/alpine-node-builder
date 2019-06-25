@@ -1,12 +1,12 @@
-FROM alpine:3.9 as base_stage
+FROM alpine:3.9.4 as base_stage
 
 LABEL maintainer="beardedeagle <randy@heroictek.com>"
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images.
-ENV REFRESHED_AT=2019-05-20 \
-  NODE_VER=12.2.0 \
+ENV REFRESHED_AT=2019-06-24 \
+  NODE_VER=12.4.0 \
   NPM_VER=6.9.0 \
   TERM=xterm \
   LANG=C.UTF-8
