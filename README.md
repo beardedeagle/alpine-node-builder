@@ -8,8 +8,8 @@ No effort has been made to make this image suitable to run in unprivileged envir
 
 ```shell
 Alpine 3.12.1
-Nodejs 15.0.1
-NPM 7.0.3
+Nodejs 15.1.0
+NPM 7.0.8
 Git 2.26.2
 ```
 
@@ -19,7 +19,7 @@ To boot straight to a node prompt in the image:
 
 ```shell
 $ docker run --rm -i -t beardedeagle/alpine-node-builder node
-Welcome to Node.js v15.0.1.
+Welcome to Node.js v15.1.0.
 Type ".help" for more information.
 >
 ```
