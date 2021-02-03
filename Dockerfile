@@ -1,20 +1,24 @@
-FROM alpine:3.12.1 as base_stage
+FROM alpine:3.13.1 as base_stage
 
 LABEL maintainer="beardedeagle <randy@heroictek.com>"
 
 # Important! Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images.
-ENV REFRESHED_AT=2020-11-05 \
-  NODE_VER=15.1.0 \
-  NPM_VER=7.0.8 \
+ENV REFRESHED_AT=2021-02-02 \
+  NODE_VER=15.8.0 \
+  NPM_VER=7.5.2 \
   TERM=xterm \
   LANG=C.UTF-8
 
 RUN set -xe \
   && apk --no-cache update \
   && apk --no-cache upgrade \
-  && apk add --no-cache bash git libstdc++ openssl \
+  && apk add --no-cache \
+    bash \
+    git \
+    libstdc++ \
+    openssl \
   && rm -rf /root/.cache \
   && rm -rf /var/cache/apk/* \
   && rm -rf /tmp/* \
@@ -46,7 +50,7 @@ RUN set -xe \
   && for key in \
     4ED778F539E3634C779C87C6D7062848A1AB005C \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
-    1C050899334244A8AF75E53792EF661D867B9DFA \
+    74F12602B6F1C4E913FAA37AD3A89613643B6201 \
     71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
     8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 \
     C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
